@@ -35,3 +35,4 @@ jobs:
         with:
           start: npm run start-dashboard
           wait-on: 'http://localhost:3000'
+          browser: chrome
