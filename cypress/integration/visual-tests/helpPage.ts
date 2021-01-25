@@ -11,6 +11,18 @@ describe('Help page', () => {
 
       cy.visit('/#/help')
       cy.dataName('helpPage').matchImageSnapshot(`help-page-size-${size}`)
+
+    })
+
+    it('logs resolution', () => {
+      const resolution = Cypress._.pick(top, [
+        'innerWidth',
+        'innerHeight'
+      ])
+      cy.task(
+        'log',
+        `top window inner w, h is ${resolution.innerWidth}x${resolution.innerHeight}`
+      )
     })
   })
 })
