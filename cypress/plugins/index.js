@@ -15,6 +15,7 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+const os = require('os')
 const { addMatchImageSnapshotPlugin, } = require('cypress-image-snapshot/plugin');
 const retinaScreenWidth = 2800
 const retinaScreenHeight = 2400
@@ -27,6 +28,18 @@ module.exports = (on, config) => {
 
       // force screen to be retina (2800x2400 size)
       launchOptions.args.push('--force-device-scale-factor=2')
+    }
+
+    console.log('before launching browser')
+    console.log(browser)
+
+    if (browser.name === 'chrome') {
+      // https://www.ghacks.net/2013/10/06/list-useful-google-chrome-command-line-switches/
+      launchOptions.args.push('--window-size=1920,1080')
+
+      console.log('chrome launch args:')
+      console.log(launchOptions.args.join(os.EOL))
+      return launchOptions
     }
 
     if (browser.name === 'electron' && browser.isHeadless) {
